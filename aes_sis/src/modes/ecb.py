@@ -5,7 +5,7 @@ from padding import pad, unpad
 BLOCK_SIZE = 16
 
 
-def encrypt(plaintext: bytes, key: bytes) -> bytes:
+def ecb_encrypt(plaintext: bytes, key: bytes) -> bytes:
     round_keys = expand_key(key)
     plaintext = pad(plaintext, BLOCK_SIZE)
 
@@ -17,7 +17,7 @@ def encrypt(plaintext: bytes, key: bytes) -> bytes:
     return bytes(ciphertext)
 
 
-def decrypt(ciphertext: bytes, key: bytes) -> bytes:
+def ecb_decrypt(ciphertext: bytes, key: bytes) -> bytes:
     round_keys = expand_key(key)
 
     plaintext = bytearray()

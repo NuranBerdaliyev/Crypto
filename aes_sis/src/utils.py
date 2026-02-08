@@ -29,3 +29,21 @@ def gf_inv(a: int) -> int:
     for _ in range(254):
         result = gf_mult(result, a)
     return result
+def gf128_mul(x: bytes, y: bytes) -> bytes:
+    R = 0xe1000000000000000000000000000000
+
+    x = int.from_bytes(x, 'big')
+    y = int.from_bytes(y, 'big')
+
+    z = 0
+    v = x
+
+    for i in range(128):
+        if (y >> (127 - i)) & 1:
+            z ^= v
+        if v & 1:
+            v = (v >> 1) ^ R
+        else:
+            v >>= 1
+
+    return z.to_bytes(16, 'big')
